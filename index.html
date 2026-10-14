@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%230E141E%27/%3E%3Cpath d=%27M17 15h15a17 17 0 0 1 0 34H17z%27 fill=%27%23ECE8E0%27/%3E%3Cpath d=%27M23 21h9a11 11 0 0 1 0 22h-9z%27 fill=%27%230E141E%27/%3E%3Cpath d=%27M26 40h3.5l8.5-16h-3.5z%27 fill=%27%23C9A45C%27/%3E%3C/svg%3E">
+<meta property="og:title" content="Decisum Inteligência de Risco">
+<meta property="og:description" content="Laudos de risco de clientes, fornecedores e distribuidores, com rating de A+ a D e recomendação objetiva.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Decisum</title>
+<meta name="description" content="Laudos de risco de clientes, fornecedores e distribuidores: crédito, fraude, falsificação e integridade, com rating de A+ a D e recomendação objetiva.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark editorial page in the existing Decisum identity. Hero = thesis left + sample laudo right; then single 1120px column of sections */
+:root{
+  --ink:#0E141E;      /* fundo da marca */
+  --ink-2:#151D2A;    /* superfícies */
+  --line:#263043;     /* filetes */
+  --bone:#ECE8E0;     /* texto principal */
+  --muted:#9AA3B2;    /* texto secundário */
+  --gold:#C9A45C;     /* acento */
+  --ok:#7FB59A; --warn:#D9B061; --bad:#D27A6B;   /* farol */
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--ink);color:var(--bone);font:400 1rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--ink) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 .95rem/1 var(--body);letter-spacing:.18em;text-transform:uppercase}
+.brand svg{width:30px;height:30px;flex:none}
+.nav-r{display:flex;align-items:center;gap:clamp(12px,2.6vw,28px)}
+.nav ul{display:flex;gap:clamp(14px,2.6vw,28px);list-style:none;margin:0;padding:0;font-size:.9rem;color:var(--muted)}
+.nav ul a{text-decoration:none}
+.nav ul a:hover{color:var(--bone)}
+.lang{display:flex;border:1px solid var(--line);border-radius:2px}
+.lang button{background:none;border:0;color:var(--muted);font:500 .72rem/1 var(--mono);letter-spacing:.08em;padding:7px 9px;cursor:pointer}
+.lang button[aria-pressed="true"]{color:var(--ink);background:var(--gold)}
+@media (max-width:820px){.nav ul{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:center;padding-block:clamp(44px,7vw,88px)}
+.hero>*{min-width:0}
+.eyebrow{font:500 .75rem/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h1{font:500 clamp(2.3rem,5.2vw,4rem)/1.05 var(--display);letter-spacing:-.01em;margin:.45em 0 .45em;text-wrap:balance}
+h1 em,h2 em{font-style:italic;color:var(--gold)}
+.lede{font-size:1.1rem;color:var(--muted);max-width:54ch;margin:0 0 2rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.85em 1.3em;font:500 .95rem/1 var(--body);text-decoration:none;border:1px solid var(--gold);color:var(--ink);background:var(--gold);border-radius:2px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--line)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+/* laudo de exemplo */
+.laudo{background:var(--ink-2);border:1px solid var(--line);font-size:.88rem}
+.l-top{display:flex;justify-content:space-between;gap:12px;padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+.l-top>div{min-width:0}
+.l-top small{display:block;font:400 .68rem/1.5 var(--mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.l-top b{font:500 1rem/1.35 var(--body);display:block;margin-block:2px}
+.grade{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:74px;padding:6px 10px;border:1px solid var(--warn);color:var(--warn)}
+.grade span{font:600 2.3rem/1 var(--display)}
+.grade small{color:var(--warn);text-align:center}
+.l-reco{padding:12px 20px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;transform:translateY(-1px)}
+.dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+.l-reco b{font-weight:500}
+.l-reco p{margin:0;color:var(--muted)}
+.bars{padding:12px 20px 4px;display:grid;gap:9px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 92px 30px;gap:10px;align-items:center;font-size:.82rem}
+.bar i{display:block;height:5px;background:var(--line);position:relative}
+.bar i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--c)}
+.bar em{font:500 .78rem/1 var(--mono);font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.l-foot{padding:10px 20px 14px;color:var(--muted);font:400 .7rem/1.5 var(--mono);letter-spacing:.03em}
+
+/* seções */
+section{padding-block:clamp(56px,8vw,96px);border-top:1px solid var(--line)}
+h2{font:500 clamp(1.8rem,3.4vw,2.6rem)/1.12 var(--display);margin:.4em 0 .6em;text-wrap:balance;max-width:26ch}
+h3{text-wrap:balance}
+.intro{color:var(--muted);max-width:62ch;margin:0 0 2.4rem}
+
+/* escala */
+.scale{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:2.4rem}
+.scale>div{background:var(--ink);padding:22px}
+.scale .g{font:600 1.8rem/1 var(--display);display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.scale h3{font:600 1rem/1.3 var(--body);margin:0 0 .35em}
+.scale p{margin:0;color:var(--muted);font-size:.92rem}
+@media (max-width:760px){.scale{grid-template-columns:1fr}}
+
+.cover{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.cover>div{background:var(--ink);padding:22px}
+.cover h3{font:600 1rem/1.3 var(--body);margin:0 0 .5em}
+.cover p{margin:0;color:var(--muted);font-size:.92rem}
+.k{font:500 .7rem/1 var(--mono);color:var(--gold);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:14px}
+.note{margin-top:18px;color:var(--muted);font-size:.9rem;max-width:70ch}
+
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,32px)}
+.duo>div{border-top:1px solid var(--gold);padding-top:18px}
+.duo h3{font:500 1.35rem/1.25 var(--display);margin:0 0 .4em}
+.duo p{margin:0;color:var(--muted)}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;padding-block:22px;border-bottom:1px solid var(--line);counter-increment:s}
+.steps li::before{content:counter(s,decimal-leading-zero);font:500 1.6rem/1 var(--display);color:var(--gold)}
+.steps h3{font:600 1.05rem/1.3 var(--body);margin:0 0 .35em}
+.steps p{margin:0;color:var(--muted);max-width:62ch}
+.sla{display:inline-block;margin-top:24px;font:500 .78rem/1.4 var(--mono);letter-spacing:.06em;color:var(--bone);border:1px solid var(--line);padding:10px 14px}
+.sla b{color:var(--gold);font-weight:500}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px)}
+.split>*{min-width:0}
+@media (max-width:820px){.hero,.split{grid-template-columns:1fr}}
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:15px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:14px}
+.list li span{font:500 .78rem/1.7 var(--mono);color:var(--gold)}
+.list b{display:block;font-weight:500}
+.list p{margin:.15em 0 0;color:var(--muted);font-size:.93rem}
+.axes{display:grid;gap:16px}
+.axis{border:1px solid var(--line);padding:22px}
+.axis b{display:block;font:500 1.35rem/1.2 var(--display);margin-bottom:.35em}
+.axis p{margin:0;color:var(--muted)}
+
+.geo{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.geo span{font:500 .78rem/1 var(--mono);letter-spacing:.06em;padding:9px 12px;border:1px solid var(--line);color:var(--muted)}
+.geo span.on{border-color:var(--gold);color:var(--bone)}
+
+.contact{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,5vw,64px);align-items:start}
+.contact>*{min-width:0}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+.card{border:1px solid var(--gold);padding:24px;margin:0}
+.card dt{font:500 .7rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.card dd{margin:0 0 18px;font-size:1.02rem;word-break:break-word}
+.card dd:last-child{margin-bottom:0}
+.copy{background:none;border:1px solid var(--line);color:var(--muted);font:500 .72rem/1 var(--mono);padding:5px 8px;margin-left:8px;cursor:pointer;border-radius:2px}
+.copy:hover{color:var(--bone);border-color:var(--muted)}
+.pilot{margin-top:8px;border-left:2px solid var(--gold);padding:4px 0 4px 16px;color:var(--muted);max-width:56ch}
+.pilot b{color:var(--bone);font-weight:500}
+
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#topo" aria-label="Decisum">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#0E141E"/><path d="M17 15h15a17 17 0 0 1 0 34H17z" fill="#ECE8E0"/><path d="M23 21h9a11 11 0 0 1 0 22h-9z" fill="#0E141E"/><path d="M26 40h3.5l8.5-16h-3.5z" fill="#C9A45C"/></svg>
+      Decisum
+    </a>
+    <div class="nav-r">
+      <ul>
+        <li><a href="#laudo" data-i="nav1">O laudo</a></li>
+        <li><a href="#servicos" data-i="nav2">Serviços</a></li>
+        <li><a href="#como" data-i="nav3">Como funciona</a></li>
+        <li><a href="#para-quem" data-i="nav4">Para quem</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Idioma">
+        <button type="button" id="lang-pt" data-lang="pt" aria-pressed="true">PT</button>
+        <button type="button" id="lang-es" data-lang="es" aria-pressed="false">ES</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn" href="#contato" style="padding:.6em 1em" data-i="navcta">Fale conosco</a>
+    </div>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow" data-i="h_eb">Laudos de risco de contrapartes</span>
+      <h1 data-i="h_t">Saiba com quem você vai operar <em>antes</em> do primeiro pedido.</h1>
+      <p class="lede" data-i="h_l">Envie o CNPJ de um cliente, fornecedor ou distribuidor e receba um laudo com rating de A+ a D, farol de risco e uma recomendação direta: crescer, vender só com pagamento antecipado ou não operar. Coleta automatizada, conclusão revisada por analista de risco.</p>
+      <div class="cta">
+        <a class="btn" href="#contato" data-i="h_c1">Solicitar um laudo</a>
+        <a class="btn ghost" href="#laudo" data-i="h_c2">Ver o que o laudo cobre</a>
+      </div>
+    </div>
+
+    <aside class="laudo" aria-label="Laudo de exemplo">
+      <div class="l-top">
+        <div>
+          <small data-i="s_k">Laudo de risco · Concessão de crédito</small>
+          <b>Distribuidora Exemplo Ltda.</b>
+          <small>CNPJ 00.000.000/0001-00 · São Paulo, SP</small>
+        </div>
+        <div class="grade"><span>C</span><small>Rating</small></div>
+      </div>
+      <div class="l-reco"><i class="dot warn" aria-hidden="true"></i><p><b data-i="s_r">Credenciar com condições.</b> <span data-i="s_r2">Pagamento antecipado nos três primeiros pedidos e envio do último balanço para definir limite.</span></p></div>
+      <div class="bars">
+        <div class="bar"><span data-i="ax1">Situação cadastral</span><i style="--v:70%;--c:var(--ok)"></i><em>70</em></div>
+        <div class="bar"><span data-i="ax2">Dívidas e protestos</span><i style="--v:60%;--c:var(--warn)"></i><em>60</em></div>
+        <div class="bar"><span data-i="ax3">Capacidade de pagamento</span><i style="--v:55%;--c:var(--warn)"></i><em>55</em></div>
+        <div class="bar"><span data-i="ax4">Processos e integridade</span><i style="--v:62%;--c:var(--warn)"></i><em>62</em></div>
+        <div class="bar"><span data-i="ax5">Marca e falsificação</span><i style="--v:40%;--c:var(--bad)"></i><em>40</em></div>
+      </div>
+      <div class="l-foot" data-i="s_f">Dados fictícios, para ilustrar o formato. Todo laudo lista as fontes consultadas e o que ficou pendente de documentação.</div>
+    </aside>
+  </div>
+
+  <section id="laudo">
+    <div class="wrap">
+      <span class="eyebrow" data-i="l_eb">O laudo</span>
+      <h2 data-i="l_t">Uma nota, um farol e uma decisão.</h2>
+      <p class="intro" data-i="l_i">O resultado de cada análise é uma das três recomendações abaixo, já com as condições para operar. O time comercial sabe na hora com quem crescer, com quem vender só antecipado e quem evitar.</p>
+      <div class="scale">
+        <div><div class="g"><i class="dot ok" aria-hidden="true"></i>A+ · A</div><h3 data-i="sc1t">Crescer</h3><p data-i="sc1p">Contraparte sólida. Pode operar a prazo, com limite sugerido.</p></div>
+        <div><div class="g"><i class="dot warn" aria-hidden="true"></i>B+ · B · C</div><h3 data-i="sc2t">Operar com condições</h3><p data-i="sc2p">Pagamento antecipado, garantias ou documentos adicionais antes de liberar prazo.</p></div>
+        <div><div class="g"><i class="dot bad" aria-hidden="true"></i>D</div><h3 data-i="sc3t">Não operar</h3><p data-i="sc3p">Gatilho eliminatório ou risco acima do aceitável para a operação.</p></div>
+      </div>
+      <div class="cover">
+        <div><span class="k" data-i="c1k">Cadastro</span><h3 data-i="c1t">Situação cadastral</h3><p data-i="c1p">Registro fiscal, tempo de atividade, endereços, gestores e mudanças recentes.</p></div>
+        <div><span class="k" data-i="c2k">Crédito</span><h3 data-i="c2t">Dívidas e protestos</h3><p data-i="c2p">Débitos fiscais, cobranças, protestos e histórico em bureaus de crédito.</p></div>
+        <div><span class="k" data-i="c3k">Capacidade</span><h3 data-i="c3t">Capacidade de pagamento</h3><p data-i="c3p">Porte real da operação, comércio exterior e, quando enviadas, demonstrações financeiras.</p></div>
+        <div><span class="k" data-i="c4k">Integridade</span><h3 data-i="c4t">Processos e grupo econômico</h3><p data-i="c4p">Ações judiciais, sanções e empresas ligadas pelos mesmos sócios ou endereço.</p></div>
+        <div><span class="k" data-i="c5k">Marca</span><h3 data-i="c5t">Falsificação e uso indevido</h3><p data-i="c5p">Histórico no segmento, regularidade sanitária e registros da sua marca por terceiros.</p></div>
+      </div>
+      <p class="note" data-i="l_n">A matriz de pesos e os gatilhos eliminatórios são ajustados ao seu negócio. Uma marca de cosméticos pesa falsificação mais do que uma distribuidora de insumos.</p>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="wrap">
+      <span class="eyebrow" data-i="v_eb">Serviços</span>
+      <h2 data-i="v_t">Do primeiro laudo à base inteira classificada.</h2>
+      <div class="duo">
+        <div><h3 data-i="v1t">Laudo de risco</h3><p data-i="v1p">Avaliação de cada nova contraparte com rating, farol, recomendação e condições para operar.</p></div>
+        <div><h3 data-i="v2t">Validação documental</h3><p data-i="v2p">Leitura de DRE, balanço e relatório de crédito enviados pela empresa avaliada, com limite de crédito sugerido.</p></div>
+        <div><h3 data-i="v3t">Proteção de marca</h3><p data-i="v3p">Verificação de registros da sua marca no país da contraparte e alerta quando terceiros ou empresas ligadas a registram.</p></div>
+        <div><h3 data-i="v4t">Base classificada</h3><p data-i="v4p">Consolidação mensal de todas as contrapartes avaliadas, por farol, para orientar o time comercial.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="wrap">
+      <span class="eyebrow" data-i="m_eb">Como funciona</span>
+      <h2 data-i="m_t">Automação na coleta, analista na conclusão.</h2>
+      <ol class="steps">
+        <li><div><h3 data-i="m1t">Você envia a solicitação</h3><p data-i="m1p">O CNPJ da empresa. Para empresas no exterior, o registro fiscal local e o país. Se tiver documentos da empresa, envie junto.</p></div></li>
+        <li><div><h3 data-i="m2t">Coleta e cruzamento</h3><p data-i="m2p">Reunimos registros oficiais, bases públicas e informações de crédito. A automação organiza os dados e aponta inconsistências e vínculos.</p></div></li>
+        <li><div><h3 data-i="m3t">Conclusão do analista</h3><p data-i="m3p">Um analista de risco aplica a sua matriz, pondera os achados e define o rating e as condições.</p></div></li>
+        <li><div><h3 data-i="m4t">Entrega do laudo</h3><p data-i="m4p">Você recebe o laudo em PDF, com as fontes consultadas, os pontos pendentes e, quando necessário, os documentos a pedir à contraparte.</p></div></li>
+      </ol>
+      <span class="sla" data-i="m_sla">Prazo padrão: <b>8 horas úteis</b> por solicitação</span>
+    </div>
+  </section>
+
+  <section id="para-quem">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow" data-i="p_eb">Para quem</span>
+        <h2 data-i="p_t">Empresas que precisam escolher bem com quem operam.</h2>
+        <ul class="list">
+          <li><span data-i="p1k">Prazo</span><div><b data-i="p1t">Vendas a prazo</b><p data-i="p1p">Indústrias e distribuidoras que concedem limite a novos clientes.</p></div></li>
+          <li><span data-i="p2k">À vista</span><div><b data-i="p2t">Vendas à vista e cadeia de fornecimento</b><p data-i="p2p">Credenciamento de fornecedores e distribuidores, com foco em fraude e desvio de canal.</p></div></li>
+          <li><span data-i="p3k">Marca</span><div><b data-i="p3t">Marcas, patentes e fórmulas</b><p data-i="p3p">Empresas expostas a falsificação e uso indevido de produtos e marcas.</p></div></li>
+          <li><span>LATAM</span><div><b data-i="p4t">Expansão internacional</b><p data-i="p4p">Operações que avaliam parceiros em outros países da América Latina.</p></div></li>
+        </ul>
+      </div>
+      <div class="axes">
+        <div class="axis"><b data-i="r1t">Menos inadimplência</b><p data-i="r1p">Prazo e limite definidos por critério, e não caso a caso.</p></div>
+        <div class="axis"><b data-i="r2t">Menos fraude e falsificação</b><p data-i="r2p">Vínculos, endereços de risco e registros de marca identificados antes do primeiro embarque.</p></div>
+        <div class="axis"><b data-i="r3t">Mais produtividade</b><p data-i="r3p">O time comercial recebe a decisão pronta, no mesmo padrão para todos, sem pesquisar cadastros em vários países.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cobertura">
+    <div class="wrap">
+      <span class="eyebrow" data-i="g_eb">Cobertura</span>
+      <h2 data-i="g_t">Do CNPJ brasileiro à América Latina.</h2>
+      <p class="intro" data-i="g_i">Empresas brasileiras são analisadas a partir do CNPJ. Para contrapartes no exterior, Peru, México e Equador já têm fontes oficiais mapeadas; para outros países, mapeamos as fontes antes do primeiro laudo.</p>
+      <div class="geo"><span class="on" data-i="g1">Brasil</span><span class="on" data-i="g2">Peru</span><span class="on" data-i="g4">México</span><span class="on" data-i="g5">Equador</span><span data-i="g3">Demais países da América Latina sob demanda</span></div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap contact">
+      <div>
+        <span class="eyebrow" data-i="k_eb">Contato</span>
+        <h2 data-i="k_t">Comece com um piloto de 30 dias.</h2>
+        <p class="pilot" data-i="k_p"><b>Como funciona o piloto:</b> durante 30 dias, aplicamos a matriz ao seu fluxo real de novas contrapartes. Ao final, revisamos juntos os resultados e os critérios.</p>
+      </div>
+      <dl class="card">
+        <dt>E-mail</dt>
+        <dd><span id="mail">contato@decisumrisco.com.br</span><button class="copy" type="button" id="copy-mail" data-copy="contato@decisumrisco.com.br" data-i="copy">copiar</button></dd>
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/company/decisum-risco/" target="_blank" rel="noopener">linkedin.com/company/decisum-risco</a></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i="f1">© 2026 Decisum Inteligência de Risco</span>
+    <span data-i="f2">Brasil e América Latina</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+var ES={
+nav1:"El informe",nav2:"Servicios",nav3:"Cómo funciona",nav4:"Para quién",navcta:"Contáctenos",
+h_eb:"Informes de riesgo de contrapartes",
+h_t:"Sepa con quién va a operar <em>antes</em> del primer pedido.",
+h_l:"Envíe el número de registro tributario de un cliente, proveedor o distribuidor y reciba un informe con calificación de A+ a D, semáforo de riesgo y una recomendación directa: crecer, vender solo con pago anticipado o no operar. Recolección automatizada, conclusión revisada por un analista de riesgo.",
+h_c1:"Solicitar un informe",h_c2:"Ver qué cubre el informe",
+s_k:"Informe de riesgo · Otorgamiento de crédito",s_r:"Homologar con condiciones.",s_r2:"Pago anticipado en los tres primeros pedidos y envío del último balance para definir el límite.",
+ax1:"Situación registral",ax2:"Deudas y protestos",ax3:"Capacidad de pago",ax4:"Procesos e integridad",ax5:"Marca y falsificación",
+s_f:"Datos ficticios, para ilustrar el formato. Cada informe detalla las fuentes consultadas y lo que quedó pendiente de documentación.",
+l_eb:"El informe",l_t:"Una nota, un semáforo y una decisión.",
+l_i:"Cada análisis termina en una de las tres recomendaciones de abajo, ya con las condiciones para operar. El equipo comercial sabe al instante con quién crecer, a quién vender solo con pago anticipado y a quién evitar.",
+sc1t:"Crecer",sc1p:"Contraparte sólida. Puede operar a crédito, con límite sugerido.",
+sc2t:"Operar con condiciones",sc2p:"Pago anticipado, garantías o documentos adicionales antes de otorgar crédito.",
+sc3t:"No operar",sc3p:"Criterio eliminatorio o riesgo por encima de lo aceptable para la operación.",
+c1k:"Registro",c1t:"Situación registral",c1p:"Registro tributario, antigüedad, domicilios, gerentes y cambios recientes.",
+c2k:"Crédito",c2t:"Deudas y protestos",c2p:"Deudas tributarias, cobranzas, protestos e historial en centrales de riesgo.",
+c3k:"Capacidad",c3t:"Capacidad de pago",c3p:"Tamaño real de la operación, comercio exterior y, cuando se envían, estados financieros.",
+c4k:"Integridad",c4t:"Procesos y grupo económico",c4p:"Procesos judiciales, sanciones y empresas vinculadas por los mismos socios o domicilio.",
+c5k:"Marca",c5t:"Falsificación y uso indebido",c5p:"Historial en el rubro, registro sanitario y registros de su marca por terceros.",
+l_n:"La matriz de pesos y los criterios eliminatorios se ajustan a su negocio. Una marca de cosméticos pondera la falsificación más que un distribuidor de insumos.",
+v_eb:"Servicios",v_t:"Del primer informe a toda la base clasificada.",
+v1t:"Informe de riesgo",v1p:"Evaluación de cada nueva contraparte con calificación, semáforo, recomendación y condiciones para operar.",
+v2t:"Validación documental",v2p:"Análisis de estado de resultados, balance e informe crediticio enviados por la empresa evaluada, con límite de crédito sugerido.",
+v3t:"Protección de marca",v3p:"Verificación de registros de su marca en el país de la contraparte y alerta cuando terceros o empresas vinculadas la registran.",
+v4t:"Base clasificada",v4p:"Consolidado mensual de todas las contrapartes evaluadas, por semáforo, para orientar al equipo comercial.",
+m_eb:"Cómo funciona",m_t:"Automatización en la recolección, analista en la conclusión.",
+m1t:"Usted envía la solicitud",m1p:"El número de registro tributario de la empresa (RUC, RFC, CNPJ o equivalente) y el país. Si tiene documentos de la empresa, envíelos junto.",
+m2t:"Recolección y cruce",m2p:"Reunimos registros oficiales, bases públicas e información crediticia. La automatización organiza los datos y señala inconsistencias y vínculos.",
+m3t:"Conclusión del analista",m3p:"Un analista de riesgo aplica su matriz, pondera los hallazgos y define la calificación y las condiciones.",
+m4t:"Entrega del informe",m4p:"Recibe el informe en PDF, con las fuentes consultadas, los puntos pendientes y, cuando corresponde, los documentos a pedir a la contraparte.",
+m_sla:"Plazo estándar: <b>8 horas hábiles</b> por solicitud",
+p_eb:"Para quién",p_t:"Empresas que necesitan elegir bien con quién operan.",
+p1k:"Crédito",p1t:"Ventas a crédito",p1p:"Industrias y distribuidoras que otorgan límites a nuevos clientes.",
+p2k:"Contado",p2t:"Ventas al contado y cadena de suministro",p2p:"Homologación de proveedores y distribuidores, con foco en fraude y desvío de canal.",
+p3k:"Marca",p3t:"Marcas, patentes y fórmulas",p3p:"Empresas expuestas a falsificación y uso indebido de productos y marcas.",
+p4t:"Expansión internacional",p4p:"Operaciones que evalúan socios en otros países de América Latina.",
+r1t:"Menos morosidad",r1p:"Plazo y límite definidos por criterio, no caso por caso.",
+r2t:"Menos fraude y falsificación",r2p:"Vínculos, domicilios de riesgo y registros de marca identificados antes del primer embarque.",
+r3t:"Más productividad",r3p:"El equipo comercial recibe la decisión lista, con el mismo estándar para todos, sin investigar registros en varios países.",
+g_eb:"Cobertura",g_t:"De Brasil a toda América Latina.",g_i:"Brasil, Perú, México y Ecuador con fuentes oficiales ya mapeadas. Para otro país, mapeamos las fuentes antes del primer informe.",
+g1:"Brasil",g2:"Perú",g4:"México",g5:"Ecuador",g3:"Demás países de América Latina a pedido",
+k_eb:"Contacto",k_t:"Empiece con un piloto de 30 días.",
+k_p:"<b>Cómo funciona el piloto:</b> durante 30 días aplicamos la matriz a su flujo real de nuevas contrapartes. Al final, revisamos juntos los resultados y los criterios.",
+copy:"copiar",f1:"© 2026 Decisum Inteligência de Risco",f2:"Brasil y América Latina"
+};
+var EN={
+nav1:"The report",nav2:"Services",nav3:"How it works",nav4:"Who it's for",navcta:"Contact us",
+h_eb:"Counterparty risk reports",
+h_t:"Know who you are dealing with <em>before</em> the first order.",
+h_l:"Send the tax ID of a customer, supplier or distributor and receive a report with a rating from A+ to D, a risk traffic light and a clear recommendation: grow, sell only with prepayment, or do not deal. Automated data collection, conclusion reviewed by a risk analyst.",
+h_c1:"Request a report",h_c2:"See what the report covers",
+s_k:"Risk report · Credit approval",s_r:"Approve with conditions.",s_r2:"Prepayment on the first three orders and latest balance sheet required to set the limit.",
+ax1:"Registration status",ax2:"Debts and protests",ax3:"Ability to pay",ax4:"Litigation and integrity",ax5:"Brand and counterfeiting",
+s_f:"Fictitious data, for illustration only. Every report lists the sources checked and what is still pending documentation.",
+l_eb:"The report",l_t:"One rating, one light, one decision.",
+l_i:"Every analysis ends in one of the three recommendations below, with the conditions to operate. Your sales team knows right away who to grow with, who to sell to only with prepayment, and who to avoid.",
+sc1t:"Grow",sc1p:"Solid counterparty. Can buy on credit, with a suggested limit.",
+sc2t:"Operate with conditions",sc2p:"Prepayment, guarantees or additional documents before granting credit.",
+sc3t:"Do not deal",sc3p:"Knock-out criterion or risk above what the operation can accept.",
+c1k:"Registry",c1t:"Registration status",c1p:"Tax registration, years in business, addresses, managers and recent changes.",
+c2k:"Credit",c2t:"Debts and protests",c2p:"Tax debts, collections, protested bills and credit bureau history.",
+c3k:"Capacity",c3t:"Ability to pay",c3p:"Actual size of the operation, foreign trade and, when provided, financial statements.",
+c4k:"Integrity",c4t:"Litigation and economic group",c4p:"Lawsuits, sanctions and companies linked by the same partners or address.",
+c5k:"Brand",c5t:"Counterfeiting and misuse",c5p:"Track record in the segment, health registrations and registrations of your brand by third parties.",
+l_n:"Weights and knock-out criteria are tailored to your business. A cosmetics brand weighs counterfeiting more heavily than a raw-materials distributor.",
+v_eb:"Services",v_t:"From the first report to your whole base, classified.",
+v1t:"Risk report",v1p:"Assessment of each new counterparty with rating, traffic light, recommendation and operating conditions.",
+v2t:"Document validation",v2p:"Review of the income statement, balance sheet and credit report sent by the assessed company, with a suggested credit limit.",
+v3t:"Brand protection",v3p:"Checks on registrations of your brand in the counterparty's country, with an alert when third parties or related companies register it.",
+v4t:"Classified base",v4p:"Monthly consolidation of every counterparty assessed, by traffic light, to guide your sales team.",
+m_eb:"How it works",m_t:"Automation to collect, an analyst to conclude.",
+m1t:"You send the request",m1p:"The company's tax ID (CNPJ, RUC, RFC or equivalent) and country. If you have company documents, send them along.",
+m2t:"Collection and cross-checks",m2p:"We gather official registries, public databases and credit information. Automation organizes the data and flags inconsistencies and links.",
+m3t:"Analyst conclusion",m3p:"A risk analyst applies your matrix, weighs the findings and sets the rating and conditions.",
+m4t:"Report delivery",m4p:"You receive the report as a PDF, with the sources checked, open points and, when needed, the documents to request from the counterparty.",
+m_sla:"Standard turnaround: <b>8 business hours</b> per request",
+p_eb:"Who it's for",p_t:"Companies that need to choose carefully who they deal with.",
+p1k:"Credit",p1t:"Credit sales",p1p:"Manufacturers and distributors granting limits to new customers.",
+p2k:"Cash",p2t:"Cash sales and supply chain",p2p:"Onboarding of suppliers and distributors, focused on fraud and channel diversion.",
+p3k:"Brand",p3t:"Brands, patents and formulas",p3p:"Companies exposed to counterfeiting and misuse of products and brands.",
+p4t:"International expansion",p4p:"Operations assessing partners in other Latin American countries.",
+r1t:"Fewer defaults",r1p:"Terms and limits set by criteria, not case by case.",
+r2t:"Less fraud and counterfeiting",r2p:"Links, risky addresses and brand registrations identified before the first shipment.",
+r3t:"Higher productivity",r3p:"Your sales team gets the decision ready, with the same standard for everyone, without researching registries in several countries.",
+g_eb:"Coverage",g_t:"From Brazil across Latin America.",g_i:"Brazilian companies are analyzed by CNPJ. For counterparties abroad, Peru, Mexico and Ecuador have official sources already mapped; for other countries, we map the sources before the first report.",
+g1:"Brazil",g2:"Peru",g4:"Mexico",g5:"Ecuador",g3:"Other Latin American countries on request",
+k_eb:"Contact",k_t:"Start with a 30-day pilot.",
+k_p:"<b>How the pilot works:</b> for 30 days we apply the matrix to your real flow of new counterparties. At the end, we review the results and criteria together.",
+copy:"copy",f1:"© 2026 Decisum Inteligência de Risco",f2:"Brazil and Latin America"
+};
+var els=[].slice.call(document.querySelectorAll('[data-i]'));
+var PT={};els.forEach(function(e){PT[e.getAttribute('data-i')]=e.innerHTML;});
+function set(l){
+  var d=l==='es'?ES:(l==='en'?EN:PT);
+  els.forEach(function(e){var k=e.getAttribute('data-i');if(d[k]!=null)e.innerHTML=d[k];});
+  document.documentElement.lang=l==='es'?'es':(l==='en'?'en':'pt-BR');
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===l?'true':'false');});
+  try{localStorage.setItem('decisum-lang',l);}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){set(b.getAttribute('data-lang'));});});
+var saved=null;try{saved=localStorage.getItem('decisum-lang');}catch(e){}
+if(!saved){var nl=navigator.language||'';saved=/^es/i.test(nl)?'es':(/^pt/i.test(nl)?'pt':(/^[a-z]/i.test(nl)?'en':'pt'));}
+if(saved==='es'||saved==='en')set(saved);
+
+var c=document.getElementById('copy-mail');
+c.addEventListener('click',function(){
+  var v=c.getAttribute('data-copy'),label=c.textContent;
+  function done(){c.textContent='✓';setTimeout(function(){c.textContent=label;},1600);}
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('mail'));var s=getSelection();s.removeAllRanges();s.addRange(r);}
+  try{navigator.clipboard.writeText(v).then(done,sel);}catch(e){sel();}
+});
+})();
+</script>
+
+</body>
+</html>
